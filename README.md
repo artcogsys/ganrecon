@@ -6,8 +6,6 @@ Method for reconstructing images from brain activity with GANs. You need a GAN t
 
 (more notes follow)
 
-High-level summary of several 2017 approaches: https://mindcodec.com/using-gans-brain-reading/
-
 
 # Requirements
 * Anaconda Python 2.7 version ( https://www.anaconda.com/download/ )
