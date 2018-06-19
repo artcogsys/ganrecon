@@ -8,7 +8,7 @@ Method for reconstructing images from brain activity with GANs. You need a GAN t
 
 
 # Requirements
-* Anaconda Python 2.7 version ( https://www.anaconda.com/download/ )
+* Anaconda Python 2.7 version
 * `chainer` version 1.24 (install via: `pip install chainer==1.24  --no-cache-dir -vvvv`)
 * A GPU for training the feature matching network
 
