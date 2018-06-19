@@ -146,7 +146,7 @@ class AlexNet(chn.Chain):
 if __name__ == "__main__":
 
     ## parameters
-    gpu_id = 0   # -1 CPU | 0,1 GPU1,2
+    gpu_id = -1   # -1 CPU | 0,1 GPU1,2
     batchsize = 128
     train_epochs = 1000
     dims = 56
