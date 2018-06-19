@@ -19,6 +19,6 @@ High-level summary of several 2017 approaches: https://mindcodec.com/using-gans-
 
 If you publish using this code or use it in any other way, please cite: 
 
-Seeliger, K., Güçlü, U., Ambrogioni, L., Güçlütürk, Y., & van Gerven, M. A. J. (2017). Generative adversarial networks for reconstructing natural images from brain activity. bioRxiv, 226688. https://www.biorxiv.org/content/early/2017/12/08/226688
+(preprint) Seeliger, K., Güçlü, U., Ambrogioni, L., Güçlütürk, Y., & van Gerven, M. A. J. (2017). Generative adversarial networks for reconstructing natural images from brain activity. bioRxiv, 226688. https://www.biorxiv.org/content/early/2017/12/08/226688
 
 Please notify the corresponding author in addition. 
