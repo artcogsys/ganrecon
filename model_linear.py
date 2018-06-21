@@ -127,7 +127,7 @@ class RegressorZ(Chain):
         # Use this code to check whether gradients were computed: 
         #self.predictor.loss_component.cleargrads()
         #loss.backward()
-        #print "Gradients: ", self.predictor.loss_component.W.grad
+        #print "Gradients: ", self.predictor.l1.W.grad
         # Do this for all new loss terms. 
 
         return loss
