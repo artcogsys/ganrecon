@@ -64,7 +64,7 @@ class RegressorZ(Chain):
 
         ## Generate images from latent space
         img_fake = self.pretrained_gan.generate_x_from_z(z)
-        img_fake = F.clip(img_fake, -1.0, 1.0)   # GAN with tanh at the end produces a few overflowing values (usually up to 1.07)
+        img_fake = F.clip(img_fake, -1.0, 1.0)   # avoid slight overflow of values (after tanh, up to 1.07)
         img_fake.volatile = 'OFF' ; img_real.volatile = 'OFF'  # workaround an issue during validation
 
         
