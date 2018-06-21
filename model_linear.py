@@ -7,7 +7,7 @@ Code for the basic linear model that learns to predict the latent space from BOL
 
 Code for perceptual feature matching. 
 
-It should be possible to improve by using non-linear alternative models. MLPs like to overfit here. 
+It should be possible to improve by using non-linear alternative models. (But simple MLPs like to overfit here.)
 
 """
 
