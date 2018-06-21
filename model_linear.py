@@ -88,8 +88,10 @@ class RegressorZ(Chain):
                 if layer_idx == 'pixel':   
 
                     # compute pixel loss l_px
-                    loss_px = args.lambda_pixel * F.mean_absolute_error( F.resize_images(img_fake, (args.small_img_dims,args.small_img_dims)),
-                                                                         F.resize_images(img_real, (args.small_img_dims,args.small_img_dims)) )
+                    loss_px = args.lambda_pixel * F.mean_absolute_error( F.resize_images(img_fake, 
+                                                                             (args.small_img_dims,args.small_img_dims)),
+                                                                         F.resize_images(img_real, 
+                                                                             (args.small_img_dims,args.small_img_dims)) )
                     loss += loss_px
 
                 else: 
