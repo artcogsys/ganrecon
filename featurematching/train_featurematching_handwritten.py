@@ -94,6 +94,8 @@ class AlexNet(chn.Chain):
 
         # Activations for feature matching are returned before applying 
         # any non-linearities.
+        
+        # TODO: indeed seems to work without the deepcopies.. probably faster. 
 
         activations = []
 
