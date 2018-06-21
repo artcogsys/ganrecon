@@ -94,8 +94,6 @@ class AlexNet(chn.Chain):
 
         # Activations for feature matching are returned before applying 
         # any non-linearities.
-        
-        # TODO: indeed seems to work without the deepcopies.. probably faster. 
 
         activations = []
 
@@ -171,8 +169,8 @@ if __name__ == "__main__":
 
     assert(img_set.shape[0] == labels.shape[0])  # sanity check
 
-    ## Get range [-0.5,0.5]  (should be: [-1 1], but does not matter)
-    img_set = img_set - 0.5
+    ## Move to range [-1.0,1.0]
+    img_set = (img_set - 0.5) * 2.0
 
     ## Create training data set and iterators
     train_imgs, val_imgs, train_labels, val_labels = train_test_split(img_set, labels, test_size = 0.1)

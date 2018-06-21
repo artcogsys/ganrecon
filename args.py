@@ -8,7 +8,6 @@ __date__: 21-06-2018
 
 """
 
-
 import argparse
 import numpy as np
 
@@ -45,7 +44,7 @@ args.pcavar = 0.99
 args.normalize = True   # z-standardize
 args.do_weightdecay = True   # leads to 0-image in combination with MLP?
 args.l2_lambda = 0.001
-args.nbatch = 2  # smaller batch size is better
+args.nbatch = 2
 
 args.gpu_device = -1  # -1: CPU  |  0,1: GPU 1,2
 
@@ -56,5 +55,7 @@ args.gpu_device = -1  # -1: CPU  |  0,1: GPU 1,2
 args.featthre = 1.0           # feature activation threshold
 args.lambda_pixel = 100.0
 args.lambda_magnitude = 1.0
+
+args.featn_layers = [0,2,3]  # 0-indexed convnet layers
 
 args.ndim_z = 50  # dimension of random z vector

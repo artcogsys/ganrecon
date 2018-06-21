@@ -22,7 +22,7 @@ from sklearn import decomposition
 from sklearn.preprocessing import StandardScaler
 
 from model_linear import RegressorZ, LinearRegression
-from model_dcgan_g import generator
+from model_dcgan_G import generator
 from recon_utilities import *
 from featurematching.train_featurematching_handwritten import AlexNet, Classifier
 
@@ -72,8 +72,8 @@ def load_stim_data(args):
     stim_val = stim_f['stimVal']
     
     # GAN produces range [-1.0, 1.0], so change range: 
-    stim_trn =  (stim_trn/255.0 * 2.0 - 1.0).astype('float32')
-    stim_val =  (stim_val/255.0 * 2.0 - 1.0).astype('float32')
+    stim_trn = (stim_trn/255.0 * 2.0 - 1.0).astype('float32')
+    stim_val = (stim_val/255.0 * 2.0 - 1.0).astype('float32')
 
     # add singleton color dimension for chainer
     stim_trn = stim_trn[:,np.newaxis,:,:]
@@ -138,7 +138,7 @@ if __name__ == "__main__":
     # Set up trainer and extensions
     trainer = training.Trainer(updater, (args.nepochs, 'epoch'), out=args.outdir)
     trainer.extend(extensions.Evaluator(validation_iter, model, device=args.gpu_device))
-    trainer.extend(extensions.LogReport(log_name='log_S' + args.subject))
+    trainer.extend(extensions.LogReport(log_name='linearmodel_train.log'))
     trainer.extend(extensions.PrintReport( ['epoch', 'main/loss', 'validation/main/loss', 'elapsed_time']) )
     trainer.extend(extensions.ProgressBar())
     
@@ -146,7 +146,7 @@ if __name__ == "__main__":
         trainer.extend(
             extensions.PlotReport(['main/loss', 'validation/main/loss'],
                                   'epoch', file_name='loss_plotreport.png', trigger=(1, 'epoch')))
-    # Save model snapshot: 
+    # Save model snapshots 
     trainer.extend(extensions.snapshot_object(linearmodel, 'reconstructionmodel_{.updater.iteration}'), 
                    trigger=(20, 'epoch'))
 
