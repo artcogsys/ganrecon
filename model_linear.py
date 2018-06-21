@@ -69,8 +69,8 @@ class RegressorZ(Chain):
 
         
         ## Get activations of perceptual features
-        _, layer_activations_fake = self.featnet( img_fake, train=False, return_activations=True)
-        _, layer_activations_real = self.featnet( img_real, train=False, return_activations=True)
+        _, layer_activations_fake = self.featnet( img_fake, train=False, return_activations=True )
+        _, layer_activations_real = self.featnet( img_real, train=False, return_activations=True )
         
         # Note that featnet can also return the non-softmaxed final layer activations (=the classes, here in _ ).
         # Got some bizarre (and no better) results for natural images when also including a class-matching loss. 
@@ -88,10 +88,11 @@ class RegressorZ(Chain):
                 if layer_idx == 'pixel':   
 
                     # compute pixel loss l_px
-                    loss_px = args.lambda_pixel * F.mean_absolute_error( F.resize_images(img_fake, 
-                                                                             (args.small_img_dims,args.small_img_dims)),
-                                                                         F.resize_images(img_real, 
-                                                                             (args.small_img_dims,args.small_img_dims)) )
+                    loss_px =   args.lambda_pixel 
+                              * F.mean_absolute_error( F.resize_images(img_fake, 
+                                                           (args.small_img_dims,args.small_img_dims)),
+                                                       F.resize_images(img_real, 
+                                                           (args.small_img_dims,args.small_img_dims)) )
                     loss += loss_px
 
                 else: 
@@ -103,8 +104,8 @@ class RegressorZ(Chain):
                     # using hard_sigmoid for a differentiable binarization at threshold 1.0
 
                     if int(layer_idx) == 0:  # negative feature activations only make sense for conv1
-                        activ_fake_neg = F.hard_sigmoid( -1.0 * layer_activations_fake[layer_idx]*3.0 - 3.*args.featthre )
-                        activ_real_neg = F.hard_sigmoid( -1.0 * layer_activations_real[layer_idx]*3.0 - 3.*args.featthre )
+                        activ_fake_neg = F.hard_sigmoid( -1.0*layer_activations_fake[layer_idx]*3.0 - 3.*args.featthre )
+                        activ_real_neg = F.hard_sigmoid( -1.0*layer_activations_real[layer_idx]*3.0 - 3.*args.featthre )
 
                         mask_real = (activ_real_pos.data + activ_real_neg.data) > 0
 
@@ -114,8 +115,10 @@ class RegressorZ(Chain):
 
                     if np.sum(mask_real[:]) > 0.0:  # if there are any activations above 1.0
                         # compute l_l,m
-                        loss_mag = args.lambda_magnitude * F.mean_squared_error(layer_activations_fake[layer_idx][mask_real],   
-                                                                                layer_activations_real[layer_idx][mask_real])
+                        loss_mag =   args.lambda_magnitude 
+                                   * F.mean_squared_error(layer_activations_fake[layer_idx][mask_real],   
+                                                          layer_activations_real[layer_idx][mask_real])
+
                     else:  # warn and set magnitude loss to 0.0 (does not happen)
                         loss_mag = 0.0
                         print "Warning: No magnitude loss"
