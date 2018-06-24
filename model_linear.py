@@ -88,11 +88,11 @@ class RegressorZ(Chain):
                 if layer_idx == 'pixel':   
 
                     # compute pixel loss l_px
-                    loss_px =   args.lambda_pixel 
-                              * F.mean_absolute_error( F.resize_images(img_fake, 
+                    loss_px =  args.lambda_pixel * (
+                               F.mean_absolute_error( F.resize_images(img_fake, 
                                                            (args.small_img_dims,args.small_img_dims)),
                                                        F.resize_images(img_real, 
-                                                           (args.small_img_dims,args.small_img_dims)) )
+                                                           (args.small_img_dims,args.small_img_dims)) )  )
                     loss += loss_px
 
                 else: 
@@ -115,9 +115,9 @@ class RegressorZ(Chain):
 
                     if np.sum(mask_real[:]) > 0.0:  # if there are any activations above 1.0
                         # compute l_l,m
-                        loss_mag =   args.lambda_magnitude 
-                                   * F.mean_squared_error(layer_activations_fake[layer_idx][mask_real],   
-                                                          layer_activations_real[layer_idx][mask_real])
+                        loss_mag =   args.lambda_magnitude * (
+                                     F.mean_squared_error(layer_activations_fake[layer_idx][mask_real],   
+                                                          layer_activations_real[layer_idx][mask_real])  )
 
                     else:  # warn and set magnitude loss to 0.0 (does not happen)
                         loss_mag = 0.0

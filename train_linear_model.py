@@ -22,12 +22,13 @@ from sklearn import decomposition
 from sklearn.preprocessing import StandardScaler
 
 from model_linear import RegressorZ, LinearRegression
-from model_dcgan_G import generator
-from recon_utilities import *
+from model_dcgan_G import GANGenerator
 from featurematching.train_featurematching_handwritten import AlexNet, Classifier
 
 from args import args
 
+
+import pdb
 
 
 def load_bold_data(args): 
@@ -113,8 +114,8 @@ if __name__ == "__main__":
     serializers.load_npz(featnet_fn, alexnet)
     
     print "Building G and loading pretrained weights..."
-    # TODO
-
+    gan = GANGenerator()
+    gan.load_weights_from_hdf5(args.gan_fname)
 
     ## Prepare training
     print "Building datasets and model trainer..."

@@ -29,10 +29,12 @@ args.generator_fname = 'weights_DCGAN_G_BRAINS.hdf5'  # TODO: create; feasible f
 args.featnet_fname = 'alexgrayBRAINS_model_iter_final'
 
 # stimulus data: trials x pixels  (separate train 'stimTrn' and val 'stimVal')
-args.stimulus_file = args.datadir + 'stimbrains.mat'
+args.stimulus_fname = args.datadir + 'stimbrains.mat'
 
 # BOLD data: trials x voxel responses  (separate train 'dataTrn' and val 'dataVal')
 args.bold_fname = args.datadir + 'bold_brains_SH.mat.mat'  
+
+args.gan_fname = args.weightsdir + 'weights_DCGAN_G_BRAINS.hdf5'
 
 
 ## 
