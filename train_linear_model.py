@@ -102,10 +102,10 @@ if __name__ == "__main__":
     assert(~np.isnan(np.sum(bold_trn[:]))) ; assert(~np.isnan(np.sum(bold_val[:])))
 
 
-    ## Load models
-    print "Building feature matching model and loading pretrained weights..."
+    ## Load generator and convnet for feature matching
     # This can be replaced with other differentiable perceptual feature extraction methods. 
     featnet_fn = args.weightsdir + args.featnet_fname
+    print "Building feature matching model and loading pretrained weights from", featnet_fn ,"..."
     if args.gpu_device != -1:  
         alexnet = Classifier(AlexNet()).to_gpu(device=args.gpu_device)
     else: 
@@ -115,6 +115,7 @@ if __name__ == "__main__":
     print "Building G and loading pretrained weights..."
     dcgan = GANGenerator()
     dcgan.load_weights_from_hdf5(args.gan_fname)
+
 
     ## Prepare training
     print "Building datasets and model trainer..."
@@ -150,6 +151,10 @@ if __name__ == "__main__":
     trainer.extend(extensions.snapshot_object(linearmodel, 'reconstructionmodel_{.updater.iteration}'), 
                    trigger=(20, 'epoch'))
 
+    # Writes z for validation set
+    if extensions.PlotReport.available():
+        trainer.extend(
+            extensions.PlotReport(, trigger=(1, 'epoch'))  )
 
     ## Run training
     trainer.run()

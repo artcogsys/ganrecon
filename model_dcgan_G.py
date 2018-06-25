@@ -49,7 +49,7 @@ class GANGenerator(Chain):
         h = F.relu(self.link_0(z))
         h = self.link_2(h)
         
-        h = F.reshape(h, (args.nbatch, 512, 2, 2) )
+        h = F.reshape(h, (z.shape[0], 512, 2, 2) )
         
         h = F.relu(self.link_4(h))
         h = self.link_5(h)
