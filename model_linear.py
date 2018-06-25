@@ -14,6 +14,7 @@ It should be possible to improve by using non-linear alternative models. (But si
 
 import numpy as np
 
+import chainer
 from chainer import Chain, ChainList, Variable, report
 import chainer.cuda as C
 import chainer.functions as F
