@@ -154,7 +154,7 @@ if __name__ == "__main__":
 
     # Write z matrix for validation set
     val_iter = FiniteIterator(validation, batch_size=stim_val.shape[0])
-    trainer.extend(ZWriter(val_iter, linearmodel, filename=args.outdir + args.zoutfilen), trigger=(1, 'epoch'))
+    trainer.extend(ZWriter(val_iter, linearmodel, filename=args.outdir+args.zoutfilen), trigger=(1, 'epoch'))
 
     ## Run training
     trainer.run()

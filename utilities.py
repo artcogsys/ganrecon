@@ -19,8 +19,8 @@ from chainer import reporter as reporter_module
 from chainer.variable import Variable
 from chainer.training.extensions.evaluator import Evaluator
 
-# *.mat format for saving / loading z after training the linear model
 from scipy.io import loadmat, savemat
+import pdb
 
 from args import args
 
@@ -38,8 +38,7 @@ class ZWriter(Evaluator):
         self.filen = filename
 
     def __call__(self, trainer=None):
-        
-        # some boilerplate code
+
         iterator = self._iterators['main']
         linearmodel = self._targets['main'].predictor
 
@@ -59,7 +58,47 @@ class ZWriter(Evaluator):
                 if args.gpu_device != -1: 
                     pred_z = pred_z.get()
                     
-                savemat(self.filen, {'z':pred_z.data})
+                savemat(self.filen, {'z':pred_z})
+                      
+
+def write_images_png(recon_imgs_val, orig_imgs_val, outdir):
+
+    if np.max(recon_imgs_val[:])>=1.0:   # sanity check, can happen (infrequently)
+        print "Out of bounds values encountered in reconstruction image. Clipping..", np.max(recon_imgs_val[:])
+
+    # move back between 0 and 1
+    recon_imgs_val = np.clip(  np.squeeze((recon_imgs_val + 1.0) / 2.0), 0.0, 1.0 ) 
+    orig_imgs_val = np.squeeze((orig_imgs_val + 1.0) / 2.0)
+
+    n = orig_imgs_val.shape[0]
+    f, ax = plt.subplots(int( np.ceil(n/5.0)*2 ), 5, figsize=(40,80))
+
+    draw_i = 0
+
+    # Plot images and their reconstructions in rows of 5
+    for row in xrange(0, int( np.ceil(n/5.0)*2 ),2):
+        for i in xrange(5): 
+            if draw_i>=n:
+                ax[row , i].axis('equal')
+                ax[row , i].axis('off')
+                ax[row+1 , i].axis('equal')
+                ax[row+1 , i].axis('off')
+                draw_i += 1
+                continue
+
+            ax[row , i].imshow(np.squeeze(orig_imgs_val[(row/2)*5 + i]), cmap='gray', vmin=0.0, vmax=1.0)
+            ax[row , i].axis('equal')
+            ax[row , i].axis('off')
+
+            ax[row+1 , i].imshow(np.squeeze(recon_imgs_val[(row/2)*5 + i]), cmap='gray', vmin=0.0, vmax=1.0)
+            ax[row+1 , i].axis('equal')
+            ax[row+1 , i].axis('off')
+
+            draw_i += 1
+
+    plt.savefig(outdir + 'recons.png')
+    plt.close()
+
 
 
 class FiniteIterator(iterator.Iterator,):

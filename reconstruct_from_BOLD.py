@@ -8,5 +8,18 @@ __date__: 21-06-2018
 
 """
 
+from scipy.io import loadmat, savemat
 
-# do the reconstruction only here, predicted z
+
+from args import args
+
+
+# do the reconstruction only here, predicted 
+
+
+if __name__=="__main__":
+    
+    loadmat(args.zoutfilen)
+    
+
+    imgs = self.trained_gan.generate_x_from_z(z, as_numpy=True)

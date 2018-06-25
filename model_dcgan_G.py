@@ -68,7 +68,7 @@ class GANGenerator(Chain):
     def generate_img_from_z(self, z_batch, test=False, as_numpy=False):
         img_batch = self.__call__(z_batch)
         if as_numpy:  # don't do this when training the linear model
-            return self.to_numpy(img_batch)
+            return img_batch.data
         return img_batch
 
 
