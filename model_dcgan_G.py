@@ -24,16 +24,16 @@ class GANGenerator(Chain):
     
     def __init__(self):
         super(GANGenerator, self).__init__(
-            l1 = L.Linear(args.ndim_z, 512 * 3**2), 
-            lb1 = L.BatchNormalization(512 * 3 ** 2), 
+            link_0 = L.Linear(args.ndim_z, 2048), 
+            link_2 = L.BatchNormalization(2048), 
             # TODO: explicit reshape?
-            l2 = L.Deconvolution2D(512, 256, ksize=4, stride=2, pad=0), 
-            lb2 = L.BatchNormalization(256), 
-            l3 = L.Deconvolution2D(256, 128, ksize=4, stride=2, pad=1), 
-            lb3 = L.BatchNormalization(128), 
-            l5 = L.Deconvolution2D(128, 64, ksize=4, stride=2, pad=1), 
-            lb5 = L.BatchNormalization(64), 
-            l6 = L.Deconvolution2D(64, 1, ksize=4, stride=2, pad=1), 
+            link_4 = L.Deconvolution2D(512, 256, ksize=4, stride=2, pad=0), 
+            link_5 = L.BatchNormalization(256), 
+            link_7 = L.Deconvolution2D(256, 128, ksize=4, stride=2, pad=1), 
+            link_8 = L.BatchNormalization(128), 
+            link_10 = L.Deconvolution2D(128, 64, ksize=4, stride=2, pad=1), 
+            link_11 = L.BatchNormalization(64), 
+            link_13 = L.Deconvolution2D(64, 1, ksize=4, stride=2, pad=1), 
             #hdf5
         )
        # TOOD: use_weightnorm=config.use_weightnorm
