@@ -15,14 +15,13 @@ parser = argparse.ArgumentParser()
 args = parser.parse_args()
 
 
-args.debug = True
+args.debug = False
 args.nepochs = 300 if not args.debug else 2 
 
 args.datadir = './data/'
 args.featnetdir = './featurematching/'
 args.weightsdir = './weights/'
 args.outdir = './recon/'
-
 
 ## data and model weights
 args.generator_fname = 'weights_DCGAN_G_BRAINS.hdf5'  # TODO: create; feasible for github?
@@ -36,8 +35,7 @@ args.bold_fname = args.datadir + 'bold_brains_SH.mat'
 
 args.gan_fname = args.weightsdir + 'weights_DCGAN_G_BRAINS.hdf5'
 
-
-## 
+## Training parameters
 args.image_dims = 56
 args.small_img_dims = 50   # resize dimension (only pixel-wise MSE)
 
@@ -49,7 +47,6 @@ args.l2_lambda = 0.001
 args.nbatch = 2
 
 args.gpu_device = -1  # -1: CPU  |  0,1: GPU 1,2
-
 
 
 ## Feature matching hyperparameters 
