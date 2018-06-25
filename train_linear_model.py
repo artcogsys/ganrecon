@@ -1,7 +1,7 @@
 """
 __author__: K. Seeliger
 __status__: Development
-__date__: 21-06-2018
+__date__: 25-06-2018
 
 
 (usage instructions)
@@ -24,6 +24,7 @@ from sklearn.preprocessing import StandardScaler
 from model_linear import RegressorZ, LinearRegression
 from model_dcgan_G import GANGenerator
 from featurematching.train_featurematching_handwritten import AlexNet, Classifier
+from utilities import ZWriter, FiniteIterator
 
 from args import args
 
@@ -151,10 +152,9 @@ if __name__ == "__main__":
     trainer.extend(extensions.snapshot_object(linearmodel, 'reconstructionmodel_{.updater.iteration}'), 
                    trigger=(20, 'epoch'))
 
-    # Writes z for validation set
-    if extensions.PlotReport.available():
-        trainer.extend(
-            extensions.PlotReport(, trigger=(1, 'epoch'))  )
+    # Write z matrix for validation set
+    val_iter = FiniteIterator(validation, batch_size=stim_val.shape[0])
+    trainer.extend(ZWriter(val_iter, linearmodel, filename=args.outdir + args.zoutfilen), trigger=(1, 'epoch'))
 
     ## Run training
     trainer.run()

@@ -61,3 +61,6 @@ args.lambda_magnitude = 1.0
 args.featn_layers = [0,2,3]  # 0-indexed convnet layers
 
 args.ndim_z = 50  # dimension of random z vector
+args.zoutfilen = "finalZ.mat" # name of the z output file
+
+
