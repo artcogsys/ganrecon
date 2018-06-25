@@ -19,6 +19,8 @@ import os
 
 from args import args
 
+import pdb
+
 
 class GANGenerator(Chain):
     
@@ -26,23 +28,28 @@ class GANGenerator(Chain):
         super(GANGenerator, self).__init__(
             link_0 = L.Linear(args.ndim_z, 2048), 
             link_2 = L.BatchNormalization(2048), 
-            # TODO: explicit reshape?
             link_4 = L.Deconvolution2D(512, 256, ksize=4, stride=2, pad=0), 
             link_5 = L.BatchNormalization(256), 
-            link_7 = L.Deconvolution2D(256, 128, ksize=4, stride=2, pad=1), 
+            link_7 = L.Deconvolution2D(256, 128, ksize=4, stride=2, pad=0), 
             link_8 = L.BatchNormalization(128), 
             link_10 = L.Deconvolution2D(128, 64, ksize=4, stride=2, pad=1), 
             link_11 = L.BatchNormalization(64), 
-            link_13 = L.Deconvolution2D(64, 1, ksize=4, stride=2, pad=1), 
+            link_13 = L.Deconvolution2D(64, 1, ksize=4, stride=2, pad=1, 
+                                        outsize=[args.image_dims, args.image_dims]), 
         )
        # TOOD: use_weightnorm=config.use_weightnorm
-       # TODO: nobias: false?
+       # TODO: nobias: false in all deconv layers
+       # TODO: use_gamma, use_beta, use_cudnn und use_beta in batchnorm
+       # TODO: decay 0.9 in batchnorm, eps 2e-05 (check again whether default)
+       # TODO: use_gamma und u
 
 
     def __call__(self, z):
     
         h = F.relu(self.link_0(z))
         h = self.link_2(h)
+        
+        h = F.reshape(h, (args.nbatch, 512, 2, 2) )
         
         h = F.relu(self.link_4(h))
         h = self.link_5(h)
@@ -53,18 +60,16 @@ class GANGenerator(Chain):
         h = F.relu(self.link_10(h))
         h = self.link_11(h)
 
-        h = F.relu(self.link_13(h))
-        
-        img = F.tanh(h)
+        img = F.tanh(self.link_13(h))
         
         return img
 
 
     def generate_img_from_z(self, z_batch, test=False, as_numpy=False):
-        img_batch, _ = self.__call__(z_batch)
+        img_batch = self.__call__(z_batch)
         if as_numpy:  # don't do this when training the linear model
-            return self.to_numpy(link_10)
-        return link_10
+            return self.to_numpy(img_batch)
+        return img_batch
 
 
     def load_weights_from_hdf5(self, filename):

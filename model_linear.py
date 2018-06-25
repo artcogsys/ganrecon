@@ -22,6 +22,8 @@ import chainer.links as L
 
 from args import args
 
+import pdb
+
 
 
 ## Linear regression model
@@ -57,17 +59,18 @@ class RegressorZ(Chain):
 
 
     def __call__(self, x, img_real):
+    
+        img_real = Variable(img_real)
 
         ## Compute latent space from BOLD
         z = self.predictor(x)
         
-
         ## Generate images from latent space
         img_fake = self.pretrained_gan.generate_img_from_z(z)
         img_fake = F.clip(img_fake, -1.0, 1.0)   # avoid slight overflow of values (after tanh, up to 1.07)
+
         img_fake.volatile = 'OFF' ; img_real.volatile = 'OFF'  # workaround an issue during validation
 
-        
         ## Get activations of perceptual features
         _, layer_activations_fake = self.featnet( img_fake, train=False, return_activations=True )
         _, layer_activations_real = self.featnet( img_real, train=False, return_activations=True )
