@@ -37,11 +37,6 @@ class GANGenerator(Chain):
             link_13 = L.Deconvolution2D(64, 1, ksize=4, stride=2, pad=1, 
                                         outsize=[args.image_dims, args.image_dims]), 
         )
-       # TOOD: use_weightnorm=config.use_weightnorm
-       # TODO: nobias: false in all deconv layers
-       # TODO: use_gamma, use_beta, use_cudnn und use_beta in batchnorm
-       # TODO: decay 0.9 in batchnorm, eps 2e-05 (check again whether default)
-       # TODO: use_gamma und u
 
 
     def __call__(self, z):
