@@ -12,25 +12,29 @@ This is a modular component of the method and can be replaced by any determinist
 """
 
 import chainer.functions as F
+import chainer.links as L
 from chainer import Chain, ChainList, Variable, report, serializers
+
+import os
 
 from args import args
 
 
 class GANGenerator(Chain):
     
-    def __init__(self, ninput, noutput):
+    def __init__(self):
         super(GANGenerator, self).__init__(
-            l1 = Linear(args.ndim_z, 512 * 3**2), 
-            lb1 = BatchNormalization(512 * 3 ** 2), 
+            l1 = L.Linear(args.ndim_z, 512 * 3**2), 
+            lb1 = L.BatchNormalization(512 * 3 ** 2), 
             # TODO: explicit reshape?
-            l2 = Deconvolution2D(512, 256, ksize=4, stride=2, pad=0), 
-            lb2 = BatchNormalization(256), 
-            l3 = Deconvolution2D(256, 128, ksize=4, stride=2, pad=1), 
-            lb3 = BatchNormalization(128), 
-            l5 = Deconvolution2D(128, 64, ksize=4, stride=2, pad=1), 
-            lb5 = BatchNormalization(64), 
-            l6 = Deconvolution2D(64, 1, ksize=4, stride=2, pad=1), 
+            l2 = L.Deconvolution2D(512, 256, ksize=4, stride=2, pad=0), 
+            lb2 = L.BatchNormalization(256), 
+            l3 = L.Deconvolution2D(256, 128, ksize=4, stride=2, pad=1), 
+            lb3 = L.BatchNormalization(128), 
+            l5 = L.Deconvolution2D(128, 64, ksize=4, stride=2, pad=1), 
+            lb5 = L.BatchNormalization(64), 
+            l6 = L.Deconvolution2D(64, 1, ksize=4, stride=2, pad=1), 
+            #hdf5
         )
        # TOOD: use_weightnorm=config.use_weightnorm
        # TODO: nobias: false?

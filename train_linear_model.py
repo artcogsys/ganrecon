@@ -67,7 +67,7 @@ def load_bold_data(args):
 
 def load_stim_data(args):
 
-    stim_f = loadmat(args.stimulus_file)
+    stim_f = loadmat(args.stimulus_fname)
 
     stim_trn = stim_f['stimTrn']
     stim_val = stim_f['stimVal']
@@ -106,7 +106,7 @@ if __name__ == "__main__":
     ## Load models
     print "Building feature matching model and loading pretrained weights..."
     # This can be replaced with other differentiable perceptual feature extraction methods. 
-    featnet_fn = args.featnetdir + args.featnet_fname
+    featnet_fn = args.weightsdir + args.featnet_fname
     if args.gpu_device != -1:  
         alexnet = Classifier(AlexNet()).to_gpu(device=args.gpu_device)
     else: 
