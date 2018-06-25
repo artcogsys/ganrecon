@@ -6,6 +6,8 @@ Method for reconstructing images from brain activity with GANs. You need a GAN t
 
 (more notes follow)
 
+Currently a bug in image write or output of generator model (overflowing). 
+
 
 # Requirements
 * Anaconda Python 2.7 version
