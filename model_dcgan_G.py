@@ -34,7 +34,6 @@ class GANGenerator(Chain):
             link_10 = L.Deconvolution2D(128, 64, ksize=4, stride=2, pad=1), 
             link_11 = L.BatchNormalization(64), 
             link_13 = L.Deconvolution2D(64, 1, ksize=4, stride=2, pad=1), 
-            #hdf5
         )
        # TOOD: use_weightnorm=config.use_weightnorm
        # TODO: nobias: false?
@@ -42,31 +41,30 @@ class GANGenerator(Chain):
 
     def __call__(self, z):
     
-        h = F.relu(self.l1(z))
-        h = F.lb1(h)
+        h = F.relu(self.link_0(z))
+        h = self.link_2(h)
         
-        h = F.relu(self.l2(z))
-        h = F.lb2(h)
+        h = F.relu(self.link_4(h))
+        h = self.link_5(h)
         
-        h = F.relu(self.l3(z))
-        h = F.lb3(h)
+        h = F.relu(self.link_7(h))
+        h = self.link_8(h)
         
-        h = F.relu(self.l4(z))
-        h = F.lb4(h)
+        h = F.relu(self.link_10(h))
+        h = self.link_11(h)
 
-        h = F.relu(self.l5(z))
-        h = F.lb5(h)
+        h = F.relu(self.link_13(h))
         
         img = F.tanh(h)
         
         return img
 
 
-    def generate_x_from_z(self, z_batch, test=False, as_numpy=False):
-        x_batch, _ = self.generator(z_batch, test=test, return_activations=True)
+    def generate_img_from_z(self, z_batch, test=False, as_numpy=False):
+        img_batch, _ = self.__call__(z_batch)
         if as_numpy:  # don't do this when training the linear model
-            return self.to_numpy(x_batch)
-        return x_batch
+            return self.to_numpy(link_10)
+        return link_10
 
 
     def load_weights_from_hdf5(self, filename):

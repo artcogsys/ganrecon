@@ -33,7 +33,6 @@ import pdb
 
 def load_bold_data(args): 
 
-    print "Loading BOLD data..."
     bold_f = loadmat(args.bold_fname)
     
     bold_trn = bold_f['dataTrn']
@@ -114,8 +113,8 @@ if __name__ == "__main__":
     serializers.load_npz(featnet_fn, alexnet)
     
     print "Building G and loading pretrained weights..."
-    gan = GANGenerator()
-    gan.load_weights_from_hdf5(args.gan_fname)
+    dcgan = GANGenerator()
+    dcgan.load_weights_from_hdf5(args.gan_fname)
 
     ## Prepare training
     print "Building datasets and model trainer..."
@@ -138,7 +137,7 @@ if __name__ == "__main__":
 
     # Set up trainer and extensions
     trainer = training.Trainer(updater, (args.nepochs, 'epoch'), out=args.outdir)
-    trainer.extend(extensions.Evaluator(validation_iter, model, device=args.gpu_device))
+    trainer.extend(extensions.Evaluator(validation_iter, linearmodel, device=args.gpu_device))
     trainer.extend(extensions.LogReport(log_name='linearmodel_train.log'))
     trainer.extend(extensions.PrintReport( ['epoch', 'main/loss', 'validation/main/loss', 'elapsed_time']) )
     trainer.extend(extensions.ProgressBar())
