@@ -3,10 +3,19 @@ __author__: K. Seeliger
 __status__: Development
 __date__: 25-06-2018
 
+Implementation example using the BRAINS BOLD data hyperaligned over subjects, a DCGAN trained for generating
+the six handwritten digits, and a feature matching network with universal feature descriptors for the 
+handwriting domain. 
 
-(usage instructions)
+Should train the linear model when running this file. Will produce the latent space predictions for the 
+validation set in ./recon (finalZ.mat).
+
+Run reconstruct_from_z.py to generate reconstruction images for the validation set from the finalZ.mat in ./recon . 
+
+Check args.py for parameters. GPU support is not necessary, but recommended.
 
 """
+
 
 import matplotlib
 matplotlib.use('Agg')
