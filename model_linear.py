@@ -60,7 +60,8 @@ class RegressorZ(Chain):
 
     def __call__(self, x, img_real):
     
-        img_real = Variable(img_real)
+        if type(img_real) != chainer.variable.Variable:  # if validation set
+            img_real = Variable(img_real)
 
         ## Compute latent space from BOLD
         z = self.predictor(x)
