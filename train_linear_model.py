@@ -1,7 +1,7 @@
 """
-__author__: K. Seeliger
-__status__: Development
-__date__: 25-06-2018
+__author__: "K. Seeliger"
+__status__: "Final"
+__date__: "27-06-2018"
 
 Implementation example using the BRAINS BOLD data hyperaligned over subjects, a DCGAN trained for generating
 the six handwritten digits, and a feature matching network with universal feature descriptors for the 

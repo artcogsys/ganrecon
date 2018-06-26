@@ -1,7 +1,7 @@
 """
-__author__: K. Seeliger
-__status__: Development
-__date__: 27-06-2018
+__author__: "K. Seeliger"
+__status__: "Final"
+__date__: "27-06-2018"
 
 Data set locations. Weight locations. Training parameters. 
 
