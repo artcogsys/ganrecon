@@ -24,7 +24,7 @@ Usage notes
     `./recon/finalZ.mat`  which contains z predictions on your validation set.
 
 2.  Run `reconstruct_from_z.py` to generate a PNG with reconstructions of the
-    validation data in `./recon/recons.png` .
+    validation data in `./recon/recons.png`.
 
 ... for your own data:
 
@@ -34,7 +34,7 @@ Usage notes
 
 2.  Train a differentiable network for feature matching. The training code for
     the AlexNet used for handwritten digits can be found in
-    `./featurematching/train_featurematching_handwritten.py` .
+    `./featurematching/train_featurematching_handwritten.py`.
 
 3.  Adapt some parameters in `args.py` and  `train_linear_model.py` (and
     hopefully little of the rest). Fine-tune the weights for the loss terms on
