@@ -14,7 +14,6 @@ latent space `z`. Losses are calculated in image space and backpropagated
 through the loss terms and the GAN over `z` to the weights of the linear
 regression layer.
 
- 
 
 Usage notes
 ===========
@@ -26,8 +25,6 @@ Usage notes
 
 2.  Run `reconstruct_from_z.py` to generate a PNG with reconstructions of the
     validation data in `./recon/recons.png` .
-
- 
 
 ... for your own data:
 
@@ -45,7 +42,6 @@ Usage notes
 
 4.  You should be able to just run `train_linear_model.py` then.
 
- 
 
 Requirements
 ============
@@ -57,7 +53,6 @@ Requirements
 
 -   A GPU for training the feature matching network
 
- 
 
 Usage conditions
 ================
