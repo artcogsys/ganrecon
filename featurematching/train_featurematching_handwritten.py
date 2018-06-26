@@ -1,7 +1,7 @@
 """
-__author__: K. Seeliger
-__status__: Development
-__date__: 19-06-2018
+__author__: "K. Seeliger"
+__status__: "Final"
+__date__: "27-06-2018"
 
 Trains an AlexNet-like convolutional neural network model for grayscale handwritten character images (1x56x56). 
 Used for feature matching purposes only. Can thus return layer activations. 
@@ -146,7 +146,7 @@ class AlexNet(chn.Chain):
 if __name__ == "__main__":
 
     ## parameters
-    gpu_id = -1   # -1 CPU | 0,1 GPU1,2
+    gpu_id = -1   # -1 CPU | 0,1 GPU 1,2
     batchsize = 128
     train_epochs = 1000
     dims = 56
