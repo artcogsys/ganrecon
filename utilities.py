@@ -59,13 +59,14 @@ class ZWriter(Evaluator):
                     pred_z = pred_z.get()
                     
                 savemat(self.filen, {'z':pred_z})
-                      
+
+
 
 def write_images_png(recon_imgs_val, orig_imgs_val, outdir):
 
-    if np.max(recon_imgs_val[:])>=1.0:   # sanity check, can happen (infrequently)
+    if np.max(recon_imgs_val[:])>1.0:   # sanity check, can happen (infrequently)
         print "Out of bounds values encountered in reconstruction image. Clipping..", np.max(recon_imgs_val[:])
-
+                
     # move back between 0 and 1
     recon_imgs_val = np.clip(  np.squeeze((recon_imgs_val + 1.0) / 2.0), 0.0, 1.0 ) 
     orig_imgs_val = np.squeeze((orig_imgs_val + 1.0) / 2.0)

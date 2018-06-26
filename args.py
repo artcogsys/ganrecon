@@ -1,10 +1,12 @@
 """
 __author__: K. Seeliger
 __status__: Development
-__date__: 21-06-2018
+__date__: 27-06-2018
 
+Data set locations. Weight locations. Training parameters. 
 
-(usage instructions)
+Train on CPU: args.gpu_device = -1
+Train on GPU #0: args.gpu_device = 0
 
 """
 
@@ -24,7 +26,7 @@ args.weightsdir = './weights/'
 args.outdir = './recon/'
 
 ## data and model weights
-args.generator_fname = 'weights_DCGAN_G_BRAINS.hdf5'  # TODO: create; feasible for github?
+args.generator_fname = 'weights_DCGAN_G_BRAINS.hdf5'
 args.featnet_fname = 'alexgrayBRAINS_model_iter_final'
 
 # stimulus data: trials x pixels  (separate train 'stimTrn' and val 'stimVal')
@@ -34,6 +36,7 @@ args.stimulus_fname = args.datadir + 'stim_brains.mat'
 args.bold_fname = args.datadir + 'bold_brains_SH.mat'  
 
 args.gan_fname = args.weightsdir + 'weights_DCGAN_G_BRAINS.hdf5'
+
 
 ## Training parameters
 args.image_dims = 56
@@ -46,7 +49,7 @@ args.do_weightdecay = True   # leads to 0-image in combination with MLP?
 args.l2_lambda = 0.001
 args.nbatch = 2
 
-args.gpu_device = -1  # -1: CPU  |  0,1: GPU 1,2
+args.gpu_device = -1  # -1: CPU | 0,1: GPU 1,2
 
 
 ## Feature matching hyperparameters 

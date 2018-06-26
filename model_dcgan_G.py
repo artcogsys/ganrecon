@@ -1,7 +1,7 @@
 """
 __author__: K. Seeliger
 __status__: Development
-__date__: 21-06-2018
+__date__: 27-06-2018
 
 Code for the generator (G) of the DCGAN model. 
 
@@ -11,15 +11,15 @@ This is a modular component of the method and can be replaced by any determinist
 
 """
 
+
 import chainer.functions as F
 import chainer.links as L
+
 from chainer import Chain, ChainList, Variable, report, serializers
 
-import os
+import os, pdb
 
 from args import args
-
-import pdb
 
 
 class GANGenerator(Chain):
@@ -40,27 +40,27 @@ class GANGenerator(Chain):
 
 
     def __call__(self, z):
-    
+
         h = F.relu(self.link_0(z))
         h = self.link_2(h)
         
-        h = F.reshape(h, (z.shape[0], 512, 2, 2) )
+        h = F.reshape(h, (-1, 512, 2, 2) )
         
-        h = F.relu(self.link_4(h))
-        h = self.link_5(h)
+        h = self.link_4(h)
+        h = F.relu(self.link_5(h))
         
-        h = F.relu(self.link_7(h))
-        h = self.link_8(h)
+        h = self.link_7(h)
+        h = F.relu(self.link_8(h))
         
-        h = F.relu(self.link_10(h))
-        h = self.link_11(h)
+        h = self.link_10(h)
+        h = F.relu(self.link_11(h))
 
         img = F.tanh(self.link_13(h))
         
         return img
 
 
-    def generate_img_from_z(self, z_batch, test=False, as_numpy=False):
+    def generate_img_from_z(self, z_batch, as_numpy=False):
         img_batch = self.__call__(z_batch)
         if as_numpy:  # don't do this when training the linear model
             return img_batch.data
@@ -74,11 +74,11 @@ class GANGenerator(Chain):
 		else:
 			print "Error: Filename", filename, "not found. "
 
-        
+
     def sample_z(self, batchsize=1):   # sample z (for GAN training)
         ndim_z = args.ndim_z
         
-        z_batch = np.random.uniform(-1,1, (batchsize, ndim_z)).astype(np.float32)
+        z_batch = np.random.uniform(-1, 1, (batchsize, ndim_z)).astype(np.float32)
         z_batch = F.normalize(z_batch).data
         
         return z_batch
