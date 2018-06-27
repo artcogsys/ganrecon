@@ -116,16 +116,17 @@ if __name__ == "__main__":
     # This can be replaced with other differentiable perceptual feature extraction methods. 
     featnet_fn = args.weightsdir + args.featnet_fname
     print "Building feature matching model and loading pretrained weights from", featnet_fn ,"..."
-    if args.gpu_device != -1:  
-        alexnet = Classifier(AlexNet()).to_gpu(device=args.gpu_device)
-    else: 
-        alexnet = Classifier(AlexNet())
+    alexnet = Classifier(AlexNet())
     serializers.load_npz(featnet_fn, alexnet)
     
     print "Building G and loading pretrained weights..."
-    dcgan = GANGenerator()
+    dcgan = GANGenerator()    
     dcgan.load_weights_from_hdf5(args.gan_fname)
 
+    if args.gpu_device != -1:
+        print "Moving models to GPU..."
+        dcgan.to_gpu(device=args.gpu_device)
+        alexnet.to_gpu(device=args.gpu_device)
 
     ## Prepare training
     print "Building datasets and model trainer..."
