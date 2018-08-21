@@ -64,6 +64,6 @@ M. A. J. (2017). Generative adversarial networks for reconstructing natural
 images from brain activity. NeuroImage 181, Nov. 1 2018, p. 775-785.
 https://doi.org/10.1016/j.neuroimage.2018.07.043
 
-(The 2017 preprint is identical to the published version and can be found on bioRxiv (226688)): https://www.biorxiv.org/content/early/2017/12/08/226688)
+( The 2017 preprint is identical to the published version and can be found on bioRxiv (226688):  https://www.biorxiv.org/content/early/2017/12/08/226688) )
 
 Please notify the corresponding author in addition.
