@@ -9,12 +9,14 @@ Used for feature matching purposes only. Can thus return layer activations.
 Nearly identical to alex.py from chainer examples. Model snapshots are written to the current 
 directory. 
 
-Uses the data set of 36 handwritten characters (40k examples) from: 
+Uses the data set of 36 handwritten characters (40k examples) by Laurens van der Maaten from: 
 Schomaker, L. and Vuurpijl, L. (2000). Forensic writer identification: A benchmark data set 
 and a comparison of two systems [internal report for the Netherlands Forensic Institute].
 
 Van der Maaten, L. (2009). A new benchmark dataset for handwritten character recognition. 
 Tilburg University.
+
+Direct link: https://lvdmaaten.github.io/publications/misc/characters.zip
 
 """
 
